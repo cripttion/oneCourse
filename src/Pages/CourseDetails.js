@@ -9,7 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 function CourseDetails() {
   const navigate = useNavigate();
   const { courseData } = useCourseContext();
-  const{updataStudnetData}=useStudentContext();
+  const{updateStudentData}=useStudentContext();
   const dataArray = [];
   dataArray.push(courseData);
 
@@ -22,7 +22,7 @@ function CourseDetails() {
   };
   const handleBuyClick = (data)=>
   {
-       updataStudnetData(data);
+    updateStudentData(data);
        navigate('/dashboard');
   }
   return (

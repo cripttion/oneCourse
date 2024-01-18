@@ -39,7 +39,7 @@ function StudentDashboard() {
             </div>
             <div className='flex flex-col md:flex-row lg:flex-row items-center mt-10 justify-center gap-4 lg:gap-20 md:gap-16 w-full items-cener'>
                 <h2 className='flex flex-row items-center gap-3'><CheckCircle /> Complted module : {moduleCompleted}</h2>
-                <h2 className='flex flex-row items-center gap-3'><WatchIcon /> Pending module : {moduleCompleted}</h2>
+                <h2 className='flex flex-row items-center gap-3'><WatchIcon /> Pending module : {totaModule-moduleCompleted}</h2>
                 <h2 className='flex flex-row items-center gap-3'><Goal /> Progess percentage : {Math.ceil(moduleCompleted*100/totaModule)}%</h2>
 
             </div>

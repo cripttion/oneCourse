@@ -10,9 +10,10 @@ import { useStudentContext } from '../StateMangement/StudentContext';
 
 function CourseList() {
   const navigate = useNavigate();
-  const { updateCourseData } = useCourseContext();  
+  const {updateCourseData} = useCourseContext();
   const{updateStudentData} = useStudentContext();
   const [courseData, setCourseData] = useState([]);
+  const [filteredCourses, setFilteredCourses] = useState([]);
   const [serachdata, setSearchData] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -21,7 +22,8 @@ function CourseList() {
       try {
         const response = await axios.get('https://course-details-sampleapi.onrender.com/v1/courses');
         setCourseData(response.data.courses);
-        setLoading(false); 
+        setFilteredCourses(response.data.courses); // Initialize filtered courses with all courses
+        setLoading(false);
       } catch (error) {
         console.error('Error during fetch:', error);
         setLoading(false);
@@ -35,13 +37,20 @@ function CourseList() {
     updateCourseData(data);
     navigate('/CourseDetails');
   };
-  const handleBuyClick =(data)=>{
+
+  const handleBuyClick = (data) => {
     updateStudentData(data);
-      alert("Courses bought succesfull");
-      navigate('/dashboard');
+    alert("Courses bought successfully");
+    navigate('/dashboard');
   }
 
-  
+  const filterCourses = (searchTerm) => {
+    const filtered = courseData.filter((course) =>
+      course.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      course.instructor.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredCourses(filtered);
+  };
 
   return (
     <div>
@@ -65,7 +74,10 @@ function CourseList() {
               type='text'
               className='p-4 outline-none w-1/2 border-l-0 rounded-r-xl border-2 border-gray-300'
               value={serachdata}
-              onChange={(e) => setSearchData(e.target.value)}
+              onChange={(e) => {
+                setSearchData(e.target.value);
+                filterCourses(e.target.value);
+              }}
               placeholder=':Course / author'
             />
           </div>
@@ -73,7 +85,7 @@ function CourseList() {
       )}
 
       <div className='flex flex-wrap gap-20 mt-16  justify-evenly  items-center mx-2'>
-        {courseData.map((data, index) => (
+        {filteredCourses.map((data, index) => (
           <div key={index}>
             <CourseCard
               pre={data.prerequisites}
@@ -85,7 +97,7 @@ function CourseList() {
               openStatus={false}
               schedule={data.schedule}
               viewClick={() => handleViewClick(data)}
-              buyClick = {()=>handleBuyClick(data)}
+              buyClick={() => handleBuyClick(data)}
             />
           </div>
         ))}

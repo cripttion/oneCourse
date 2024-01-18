@@ -1,7 +1,7 @@
 const TextData = 
     {
       NavBar: {
-        BrandName: 'TanuEra',
+        BrandName: '₹1Course',
         
         navMiddleElement1 : 'Dashboard',
         navMiddleElement2 :'Courses',
