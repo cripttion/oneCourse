@@ -1,4 +1,4 @@
-# Dummy Course Selling Platform
+# Dummy Course Selling Platform  [open in web](https://one-course.vercel.app/)
 
 Welcome to the Dummy Course Selling Platform, a frontend portal for exploring and purchasing online courses.
 
